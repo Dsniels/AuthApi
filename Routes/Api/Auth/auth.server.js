@@ -12,7 +12,7 @@ const autenticado = () => {
   return compose()
     .use((request, response, next) => {
       validateJwt(request, response, next);
-      request.query.hasOwnProperty("access_token")
+      Object.prototype.hasOwnProperty.call(request.query, 'access_token')
         ? (request.header.authorization = request.query.access_token)
         : response.status(400);
     })
