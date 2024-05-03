@@ -1,5 +1,5 @@
 const express = require("express");
-const { expressJwt: expressJwt } = require("express-jwt");
+const { expressJwt } = require("express-jwt");
 const jwt = require("jsonwebtoken");
 const compose = require("composable-middleware");
 const validateJwt = expressJwt({
