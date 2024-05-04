@@ -1,13 +1,11 @@
 const { expressJwt } = require("express-jwt");
 const compose = require("composable-middleware");
 const User = require("../Users/User.model");
-const config = require('../../../config')
+const config = require("../../../config");
 const validateJwt = expressJwt({
   secret: config.jwtSecret,
   algorithms: ["HS256"],
 });
-
-
 
 /**
  * funcion middleware de authenticacion
@@ -29,27 +27,27 @@ const autenticado = () => {
     });
 };
 
-
 /**
  * Function para verificar si cumple con un rol minimo
  * @param {string} roleRequerido Role minimo requerido
  * @returns {Function} retorna una funcion middleware que verifica el rol del usuario
  */
 const hasRole = (roleRequerido) => {
-  if(!roleRequerido) throw new Error('Role requerido');
+  if (!roleRequerido) throw new Error("Role requerido");
 
   return compose()
-          .use(autenticado())
-          .use( (request, response, next) =>{
-            if(config.userRoles.indexOf(request.user.role) >= config.userRoles.indexOf(roleRequerido)){
-              next();
-            } else {
-              response.send(403);
-            }
-          });
-} 
-
+    .use(autenticado())
+    .use((request, response, next) => {
+      if (
+        config.userRoles.indexOf(request.user.role) >=
+        config.userRoles.indexOf(roleRequerido)
+      ) {
+        next();
+      } else {
+        response.send(403);
+      }
+    });
+};
 
 exports.autenticado = autenticado;
 exports.hasRole = hasRole;
-
