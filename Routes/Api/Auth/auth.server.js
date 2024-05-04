@@ -11,6 +11,11 @@ const validateJwt = expressJwt({
 
 
 
+/**
+ * funcion middleware de authenticacion
+ * Valida el JWT y lo define en el objeto user dentro del request
+ * @returns {Function} funcion middleware.
+ */
 const autenticado = () => {
   return compose()
     .use((request, response, next) => {
@@ -26,6 +31,12 @@ const autenticado = () => {
     });
 };
 
+
+/**
+ * Function para verificar si cumple con un rol minimo
+ * @param {string} roleRequerido Role minimo requerido
+ * @returns {Function} retorna una funcion middleware que verifica el rol del usuario
+ */
 const hasRole = (roleRequerido) => {
   if(!roleRequerido) throw new Error('Role requerido');
 
