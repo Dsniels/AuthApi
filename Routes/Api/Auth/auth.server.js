@@ -3,13 +3,11 @@ const { expressJwt } = require("express-jwt");
 const jwt = require("jsonwebtoken");
 const compose = require("composable-middleware");
 const User = require("../Users/User.model");
-const config = require('../../../config')
+const config = require("../../../config");
 const validateJwt = expressJwt({
   secret: config.secretOrKey,
   algorithms: ["HS256"],
 });
-
-
 
 const autenticado = () => {
   return compose()
@@ -27,20 +25,21 @@ const autenticado = () => {
 };
 
 const hasRole = (roleRequerido) => {
-  if(!roleRequerido) throw new Error('Role requerido');
+  if (!roleRequerido) throw new Error("Role requerido");
 
   return compose()
-          .use(autenticado())
-          .use( (request, response, next) =>{
-            if(config.userRoles.indexOf(request.user.role) >= config.userRoles.indexOf(roleRequerido)){
-              next();
-            } else {
-              response.send(403);
-            }
-          });
-} 
-
+    .use(autenticado())
+    .use((request, response, next) => {
+      if (
+        config.userRoles.indexOf(request.user.role) >=
+        config.userRoles.indexOf(roleRequerido)
+      ) {
+        next();
+      } else {
+        response.send(403);
+      }
+    });
+};
 
 exports.autenticado = autenticado;
 exports.hasRole = hasRole;
-
