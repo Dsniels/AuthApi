@@ -14,6 +14,7 @@ exports.signUpUser = (request, response) => {
     const newUser = new User(request.body);
     // Hash password
     bcrypt.genSalt(10, (err, salt) => {
+        if(err) throw err;
         bcrypt.hash(newUser.password, salt, (err, hash) => {
             if (err) throw err;
             newUser.password = hash;
@@ -43,6 +44,7 @@ exports.loginUser = (request, response) => {
                     };
 
                     jwt.sign(payload, keys.jwtSecret, { expires: 12345 }, (err, token) => {
+                        if(err) throw err;
                         response.json({
                             status: true,
                             token: token
