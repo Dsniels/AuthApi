@@ -3,7 +3,7 @@ const compose = require("composable-middleware");
 const User = require("../Users/User.model");
 const config = require('../../../config')
 const validateJwt = expressJwt({
-  secret: config.secretOrKey,
+  secret: config.jwtSecret,
   algorithms: ["HS256"],
 });
 
