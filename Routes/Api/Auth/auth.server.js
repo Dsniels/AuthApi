@@ -1,6 +1,4 @@
-const express = require("express");
 const { expressJwt } = require("express-jwt");
-const jwt = require("jsonwebtoken");
 const compose = require("composable-middleware");
 const User = require("../Users/User.model");
 const config = require('../../../config')
