@@ -47,7 +47,7 @@ exports.loginUser = (request, response) => {
                         if(err) throw err;
                         response.json({
                             status: true,
-                            token: token
+                            userToken: token
                         });
                     });
                 } else {
