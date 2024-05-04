@@ -15,10 +15,10 @@ exports.signUpUser = (request, response) => {
     // Hash password
     bcrypt.genSalt(10, (err, salt) => {
         if(err) throw err;
-        bcrypt.hash(newUser.password, salt, (err, hash) => {
-            if (err) throw err;
+        bcrypt.hash(newUser.password, salt, (error, hash) => {
+            if (error) throw error;
             newUser.password = hash;
-            newUser.save().then(response => response.json()).catch(err => console.log(err));
+            newUser.save().then(res => res.json()).catch(e => console.log(e));
         });
     });
 }
