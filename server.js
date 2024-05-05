@@ -2,10 +2,9 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const passport = require("passport");
 const app = express();
-const user = require('./Routes/Api/Users/index');
+const user = require("./Routes/Api/Users/index");
 
-app.set('view engine', 'ejs');
-
+app.set("view engine", "ejs");
 
 app.use(
   bodyParser.urlencoded({
@@ -40,9 +39,9 @@ app.use((err, request, response, next) => {
 //Rutas de acceso y callbacks
 
 app.use("/", (request, response) => {
-  response.status(200).json({message : 'hola'});
-  console.log('hola');
+  response.status(200).json({ message: "hola" });
+  console.log("hola");
 });
-app.use('/api/users', user);
+app.use("/api/users", user);
 
 app.listen(3000, () => console.log("Server ejecutandose en el puerto 3000"));
